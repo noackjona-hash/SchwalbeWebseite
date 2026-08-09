@@ -1,0 +1,265 @@
+:root {
+  /* Pitch Black Palette */
+  --bg-primary: #000000; /* Pure Black */
+  --bg-secondary: #050505; /* Almost Black */
+  --bg-tertiary: #0a0a0a; /* Very Dark Gray */
+  
+  --text-primary: #e0e0e0; /* Softer white to reduce glare */
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+  
+  --accent-primary: #ffffff; 
+  --accent-primary-hover: #cccccc;
+  --accent-secondary: #ffffff; 
+  
+  --border-color: #111111; /* Extremely dark border */
+  --panel-bg: #050505; /* Just slightly above pure black for cards */
+  
+  /* Typography */
+  --font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  
+  /* Spacing & Layout */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 5rem;
+  
+  --container-width: 1200px;
+  --header-height: 80px;
+  
+  --transition-fast: 150ms ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-primary-hover);
+}
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+main {
+  flex: 1;
+  padding-top: var(--header-height);
+}
+
+/* Classic Clean Cards (No more glassmorphism) */
+.content-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Clean Hover Effects */
+.image-hover {
+  transition: opacity var(--transition-fast);
+}
+
+.image-hover:hover {
+  opacity: 0.8;
+}
+
+/* Sponsor Logos */
+.sponsor-logo {
+  filter: grayscale(100%) brightness(0.8);
+  opacity: 0.6;
+  transition: all 300ms ease;
+  border-radius: 4px;
+}
+
+.sponsor-logo:hover {
+  filter: grayscale(0%) brightness(1);
+  opacity: 1;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  color: var(--accent-secondary);
+}
+
+/* Section Title like in Screenshot */
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-2xl);
+  position: relative;
+  padding-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px; /* Short, elegant line */
+  height: 4px; /* Thicker line */
+  background-color: var(--accent-primary);
+  border-radius: 2px;
+}
+
+.title-gradient {
+  color: var(--text-secondary);
+}
+
+.title-accent {
+  color: var(--accent-primary);
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  font-family: var(--font-family);
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.btn-primary:hover {
+  background: var(--text-secondary);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-primary);
+  background-color: var(--bg-tertiary);
+}
+
+/* Hero Section Image Overlay */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: calc(-1 * var(--header-height));
+  padding-top: var(--header-height);
+  /* Use real club image instead of stock photo */
+  background-image: url('/images/Amateure1.webp');
+  background-size: cover;
+  background-position: center 30%;
+  background-attachment: fixed; /* Parallax effect */
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 1) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #ffffff; /* White text looks great on the darkened multiply background */
+  padding: 0 var(--spacing-lg);
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-xs);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Secondary Parallax Banner */
+.parallax-banner {
+  position: relative;
+  width: 100%;
+  height: 40vh;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: var(--spacing-3xl) 0;
+  background-image: url('/images/Amateure1.webp'); /* Another image for variety */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect */
+}
+
+.parallax-banner .hero-overlay {
+  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay for variety */
+  mix-blend-mode: normal;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 60px;
+    --spacing-3xl: 3rem;
+  }
+}
