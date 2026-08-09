@@ -21,11 +21,17 @@ export function getSortedPostsData() {
 
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
+    
+    // gray-matter might parse unquoted dates as Date objects. Convert them to string.
+    const data = { ...matterResult.data };
+    if (data.date instanceof Date) {
+      data.date = data.date.toISOString().split('T')[0];
+    }
 
     // Combine the data with the slug
     return {
       slug,
-      ...(matterResult.data as { date: string; title: string; author?: string; image?: string; excerpt?: string })
+      ...(data as { date: string; title: string; author?: string; image?: string; excerpt?: string })
     };
   });
 
@@ -52,10 +58,16 @@ export async function getPostData(slug: string) {
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
+  // gray-matter might parse unquoted dates as Date objects. Convert them to string.
+  const data = { ...matterResult.data };
+  if (data.date instanceof Date) {
+    data.date = data.date.toISOString().split('T')[0];
+  }
+
   // Combine the data with the slug and contentHtml
   return {
     slug,
     contentHtml,
-    ...(matterResult.data as { date: string; title: string; author?: string; image?: string })
+    ...(data as { date: string; title: string; author?: string; image?: string })
   };
 }
