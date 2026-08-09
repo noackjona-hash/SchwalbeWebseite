@@ -1,20 +1,16 @@
-import { NextResponse } from 'next/server';
-
-export const runtime = 'edge'; // Cloudflare Pages Edge Runtime
-
-export async function GET(request: Request) {
-  const url = new URL(request.url);
+export async function onRequestGet(context: any) {
+  const url = new URL(context.request.url);
   const code = url.searchParams.get('code');
 
   if (!code) {
-    return new NextResponse("Missing authorization code", { status: 400 });
+    return new Response("Missing authorization code", { status: 400 });
   }
 
-  const clientId = process.env.GITHUB_CLIENT_ID;
-  const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+  const clientId = context.env.GITHUB_CLIENT_ID;
+  const clientSecret = context.env.GITHUB_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    return new NextResponse("Missing GitHub OAuth credentials in environment variables", { status: 500 });
+    return new Response("Missing GitHub OAuth credentials in environment variables", { status: 500 });
   }
 
   try {
@@ -32,11 +28,11 @@ export async function GET(request: Request) {
       }),
     });
 
-    const data = await response.json();
+    const data: any = await response.json();
     const token = data.access_token;
 
     if (!token) {
-      return new NextResponse(`GitHub OAuth error: ${JSON.stringify(data)}`, { status: 400 });
+      return new Response(`GitHub OAuth error: ${JSON.stringify(data)}`, { status: 400 });
     }
 
     // Decap CMS expects this specific HTML/JS response to communicate the token back to the main window
@@ -68,10 +64,10 @@ export async function GET(request: Request) {
       </html>
     `;
 
-    return new NextResponse(script, {
+    return new Response(script, {
       headers: { 'Content-Type': 'text/html' },
     });
-  } catch (error) {
-    return new NextResponse(`Internal Server Error: ${(error as Error).message}`, { status: 500 });
+  } catch (error: any) {
+    return new Response(`Internal Server Error: ${error.message}`, { status: 500 });
   }
 }
