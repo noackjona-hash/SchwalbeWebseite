@@ -42,6 +42,11 @@ export default function Header() {
     <header className={styles.header}>
       <div className={`container ${styles.headerContainer}`}>
         
+        {/* Logo */}
+        <Link href="/" className={styles.logoText}>
+          RSV <span>Ellmendingen</span>
+        </Link>
+
         {/* Desktop Navigation */}
         <nav className={styles.desktopNav}>
           <ul className={styles.navList}>

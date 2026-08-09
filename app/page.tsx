@@ -7,18 +7,24 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="hero-section animate-fade-in">
+      <section className="hero-section clip-diagonal animate-fade-in">
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title"><span className="text-gradient">RSV Ellmendingen</span></h1>
-          <p style={{ fontSize: '1.25rem', marginTop: 'var(--spacing-sm)' }}>Der Radsportverein in Baden</p>
+          <h1 className="hero-title">RSV Ellmendingen</h1>
+          <span className="hero-subtitle">Der Radsportverein in Baden</span>
+        </div>
+        <div className="scroll-indicator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
         </div>
       </section>
 
-      <div className="container" style={{ paddingTop: 'var(--spacing-3xl)', paddingBottom: 'var(--spacing-3xl)' }}>
+      <div className="container" style={{ paddingTop: 'var(--spacing-3xl)', paddingBottom: 'var(--spacing-3xl)', position: 'relative' }}>
+        <div className="watermark">RSV</div>
         <h2 className="section-title">Neues aus dem Verein</h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--spacing-2xl)' }}>
+        <div className="blog-grid">
           {allPostsData.map(({ slug, date, title, excerpt, author, image }) => (
             <article key={slug} className="content-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
               {image && (
@@ -36,8 +42,8 @@ export default function Home() {
                   {date} {author && `| ${author}`}
                 </div>
                 <p style={{ color: 'var(--text-secondary)', flex: 1 }}>{excerpt}</p>
-                <Link href={`/blog/${slug}`} style={{ alignSelf: 'flex-start', marginTop: 'var(--spacing-md)', color: 'var(--text-primary)', fontWeight: 600, borderBottom: '1px solid var(--text-primary)', paddingBottom: '2px' }}>
-                  Weiterlesen →
+                <Link href={`/blog/${slug}`} className="link-animated">
+                  Weiterlesen
                 </Link>
               </div>
             </article>
@@ -47,7 +53,7 @@ export default function Home() {
         {/* Additional Gallery Preview if needed */}
         <div style={{ marginTop: 'var(--spacing-3xl)' }}>
             <h2 className="section-title">Galerie</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--spacing-md)' }}>
+            <div className="gallery-grid">
                 <div style={{ overflow: 'hidden' }} className="image-hover">
                   <img src="/images/Amateure1.webp" alt="Amateure" style={{ width: '100%', height: '300px', objectFit: 'cover', transform: 'scale(1.05)', display: 'block' }} />
                 </div>
@@ -61,7 +67,7 @@ export default function Home() {
         </div>
 
         {/* Sponsors Section */}
-        <div className="glass-panel" style={{ marginTop: 'var(--spacing-3xl)', padding: 'var(--spacing-xl)' }}>
+        <div className="clean-panel" style={{ marginTop: 'var(--spacing-3xl)', padding: 'var(--spacing-xl)' }}>
             <h2 className="section-title" style={{ marginBottom: 'var(--spacing-xl)' }}>Unsere Sponsoren</h2>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-xl)', justifyContent: 'center', alignItems: 'center' }}>
               {[
@@ -85,12 +91,13 @@ export default function Home() {
       </div>
 
       {/* Secondary Parallax Banner */}
-      <section className="parallax-banner animate-fade-in">
+      <section className="parallax-banner clip-diagonal animate-fade-in">
         <div className="hero-overlay"></div>
-        <div className="hero-content" style={{ marginTop: 0 }}>
-          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--text-primary)', fontWeight: 600 }}>
-            Leidenschaft auf zwei Rädern
+        <div className="hero-content" style={{ marginTop: 0, background: 'transparent', border: 'none', boxShadow: 'none' }}>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: 'var(--text-inverse)', fontWeight: 800, margin: 0, lineHeight: 1.1 }}>
+            Leidenschaft
           </h2>
+          <span className="hero-subtitle" style={{ color: 'var(--text-inverse)', marginTop: 'var(--spacing-xs)' }}>Auf zwei Rädern</span>
         </div>
       </section>
     </>

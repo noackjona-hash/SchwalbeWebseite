@@ -1,0 +1,31 @@
+backend:
+  name: github
+  repo: noackjona-hash/SchwalbeWebseite
+  branch: main
+  use_graphql: true
+  auth_type: pkce
+  # HINWEIS: Hier muss die Client ID deiner GitHub OAuth App rein.
+  app_id: "Ov23liyBTaEfZ83f0DUS"
+
+# Lokales Testen ohne GitHub (falls nötig)
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "posts"
+    label: "News & Artikel"
+    label_singular: "Artikel"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Titel", name: "title", widget: "string"}
+      - {label: "Veröffentlichungsdatum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Autor", name: "author", widget: "string", required: false, default: "Vorstand"}
+      - {label: "Titelbild", name: "image", widget: "image", required: false}
+      - {label: "Kurzzusammenfassung (Für die Startseite)", name: "excerpt", widget: "text", required: false}
+      - {label: "Text / Inhalt", name: "body", widget: "markdown"}
