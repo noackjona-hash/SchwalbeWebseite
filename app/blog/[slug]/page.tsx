@@ -1,6 +1,8 @@
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import Link from 'next/link';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const posts = getSortedPostsData();
   return posts.map((post) => ({

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './Header.module.css';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { href: '/', label: 'Start' },
@@ -47,8 +48,10 @@ export default function Header() {
           RSV <span>Ellmendingen</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className={styles.desktopNav}>
+        {/* Right side controls */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-md)' }}>
+          {/* Desktop Navigation */}
+          <nav className={styles.desktopNav}>
           <ul className={styles.navList}>
             {navLinks.map((link) => (
               <li key={link.label} className={link.subLinks ? styles.dropdownItem : ''}>
@@ -78,12 +81,15 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* Mobile Navigation */}
-        <div className={styles.mobileNavTrigger}>
-          <span>Menu</span>
-          <label htmlFor="nav-toggle" className={styles.navToggleLabel}>
-            <div className={styles.hamburger}></div>
-          </label>
+          <ThemeToggle />
+
+          {/* Mobile Navigation Trigger */}
+          <div className={styles.mobileNavTrigger}>
+            <span>Menu</span>
+            <label htmlFor="nav-toggle" className={styles.navToggleLabel}>
+              <div className={styles.hamburger}></div>
+            </label>
+          </div>
         </div>
         
         <input type="checkbox" id="nav-toggle" className={styles.navToggle} />

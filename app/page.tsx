@@ -1,9 +1,18 @@
 import { getSortedPostsData } from '@/lib/posts';
+import { getSortedTermineData } from '@/lib/termine';
+import { getSponsors } from '@/lib/sponsoren';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
+import LightboxGallery from '@/components/LightboxGallery';
 
 export default function Home() {
   const allPostsData = getSortedPostsData();
+  const alleTermine = getSortedTermineData();
+  const sponsorsList = getSponsors();
+  
+  // Filter for upcoming events (basic string comparison works for YYYY-MM-DD dates)
+  const today = new Date().toISOString().split('T')[0];
+  const upcomingEvents = alleTermine.filter(t => t.date >= today).slice(-3).reverse(); // closest 3 events
 
   return (
     <>
@@ -23,6 +32,34 @@ export default function Home() {
 
       <div className="container" style={{ paddingTop: 'var(--spacing-3xl)', paddingBottom: 'var(--spacing-3xl)', position: 'relative' }}>
         <div className="watermark">RSV</div>
+        
+        {/* Upcoming Events Widget */}
+        {upcomingEvents.length > 0 && (
+          <div style={{ marginBottom: 'var(--spacing-3xl)' }}>
+            <h2 className="section-title">Nächste Termine</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--spacing-md)' }}>
+              {upcomingEvents.map((termin, index) => (
+                <ScrollReveal key={termin.slug} delay={index * 100}>
+                  <div className="glass-panel" style={{ padding: 'var(--spacing-xl)', borderLeft: '4px solid var(--brand-primary)', height: '100%' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--brand-primary)', fontWeight: 700, marginBottom: 'var(--spacing-xs)', textTransform: 'uppercase' }}>
+                      {termin.category}
+                    </div>
+                    <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--spacing-xs)' }}>{termin.title}</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: 'var(--spacing-sm)' }}>
+                      🗓️ {termin.date} {termin.location && <span style={{ marginLeft: 'var(--spacing-sm)' }}>📍 {termin.location}</span>}
+                    </div>
+                    {termin.link && (
+                      <Link href={termin.link} target="_blank" className="link-animated" style={{ fontSize: '0.9rem' }}>
+                        Mehr Infos &rarr;
+                      </Link>
+                    )}
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        )}
+
         <h2 className="section-title">Neues aus dem Verein</h2>
 
         <div className="blog-grid">
@@ -53,20 +90,16 @@ export default function Home() {
           ))}
         </div>
         
-        {/* Additional Gallery Preview if needed */}
+        {/* Interactive Lightbox Gallery */}
         <div style={{ marginTop: 'var(--spacing-3xl)' }}>
             <h2 className="section-title">Galerie</h2>
-            <div className="gallery-grid">
-                <ScrollReveal delay={0}><div style={{ overflow: 'hidden' }} className="image-hover">
-                  <img src="/images/Amateure1.webp" alt="Amateure" style={{ width: '100%', height: '300px', objectFit: 'cover', transform: 'scale(1.05)', display: 'block' }} />
-                </div></ScrollReveal>
-                <ScrollReveal delay={150}><div style={{ overflow: 'hidden' }} className="image-hover">
-                  <img src="/images/Bellheim.webp" alt="Bellheim" style={{ width: '100%', height: '300px', objectFit: 'cover', transform: 'scale(1.05)', display: 'block' }} />
-                </div></ScrollReveal>
-                <ScrollReveal delay={300}><div style={{ overflow: 'hidden' }} className="image-hover">
-                  <img src="/images/Rollentraining-Winter.webp" alt="Training" style={{ width: '100%', height: '300px', objectFit: 'cover', transform: 'scale(1.05)', display: 'block' }} />
-                </div></ScrollReveal>
-            </div>
+            <LightboxGallery 
+              images={[
+                { src: "/images/Amateure1.webp", alt: "Amateure" },
+                { src: "/images/Bellheim.webp", alt: "Bellheim" },
+                { src: "/images/Rollentraining-Winter.webp", alt: "Training" }
+              ]} 
+            />
         </div>
 
         {/* Sponsors Section */}
@@ -74,19 +107,8 @@ export default function Home() {
           <div className="clean-panel" style={{ marginTop: 'var(--spacing-3xl)', padding: 'var(--spacing-xl)' }}>
               <h2 className="section-title" style={{ marginBottom: 'var(--spacing-xl)' }}>Unsere Sponsoren</h2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-xl)', justifyContent: 'center', alignItems: 'center' }}>
-                {[
-                  { name: 'Altinger Drucktechnik', url: 'https://www.altinger-drucktechnik.de/', logo: '/images/sponsoren/AltingerHP.jpg' },
-                  { name: 'Bike Sport Höhn', url: 'https://www.bike-sport-hoehn.de/', logo: '/images/sponsoren/LogoRadHoehnHP.jpg' },
-                  { name: 'Containerdienst Birkenfeld', url: 'https://www.containerdienst-birkenfeld.de/', logo: '/images/sponsoren/ContainerdienstHP.jpg' },
-                  { name: 'Drollinger', url: 'https://www.drollinger.de/willkommen', logo: '/images/sponsoren/DrollingerHP.jpg' },
-                  { name: 'Heizung Sanitär Pforzheim', url: 'http://www.heizung-sanitaer-pforzheim.de/', logo: '/images/sponsoren/GasSchmidtHP.jpg' },
-                  { name: 'Kaiser Präzision', url: 'https://kaiser-praezision.de/', logo: '/images/sponsoren/LogoKaiserPraezisionHP.jpg' },
-                  { name: 'Mister Bike', url: 'https://www.misterbike.com/', logo: '/images/sponsoren/MB_logo_hp.jpg' },
-                  { name: 'OTEC', url: 'https://www.otec.de/de/', logo: '/images/sponsoren/OtecHP.jpg' },
-                  { name: 'Sparkasse Pforzheim Calw', url: 'https://www.sparkasse-pforzheim-calw.de/de/home.html', logo: '/images/sponsoren/Logo Sparkasse Test.jpg' },
-                  { name: 'Sport Tex Haag', url: 'https://www.sport-tex.de/', logo: '/images/sponsoren/SportTexHaagHP.jpg' },
-                ].map((sponsor, i) => (
-                  <a key={i} href={sponsor.url} target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
+                {sponsorsList.map((sponsor, i) => (
+                  <a key={i} href={sponsor.url || '#'} target={sponsor.url ? "_blank" : "_self"} rel="noopener noreferrer" style={{ display: 'block' }}>
                     <img src={sponsor.logo} alt={sponsor.name} className="sponsor-logo" style={{ maxHeight: '60px', width: 'auto', objectFit: 'contain', background: '#fff', padding: '5px' }} />
                   </a>
                 ))}

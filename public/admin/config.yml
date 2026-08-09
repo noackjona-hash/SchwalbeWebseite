@@ -55,6 +55,18 @@ collections:
         fields:
           - {label: "Titel", name: "title", widget: "string"}
           - {label: "Text / Inhalt", name: "body", widget: "markdown"}
+      - label: "RSV-Kids"
+        name: "rsv-kids"
+        file: "content/pages/rsv-kids.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Text / Inhalt", name: "body", widget: "markdown"}
+      - label: "Wandergruppe"
+        name: "wandergruppe"
+        file: "content/pages/wandergruppe.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Text / Inhalt", name: "body", widget: "markdown"}
 
   - name: "termine"
     label: "Termine & Rennen"
