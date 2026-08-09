@@ -4,6 +4,7 @@ backend:
   branch: main
   use_graphql: true
   # Wir nutzen jetzt unsere eigene Next.js API-Route für den Login
+  base_url: "https://schwalbewebseite.pages.dev"
   auth_endpoint: "api/auth"
 
 # Lokales Testen ohne GitHub (falls nötig)
