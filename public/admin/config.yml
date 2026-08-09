@@ -3,9 +3,8 @@ backend:
   repo: noackjona-hash/SchwalbeWebseite
   branch: main
   use_graphql: true
-  auth_type: pkce
-  # HINWEIS: Hier muss die Client ID deiner GitHub OAuth App rein.
-  app_id: "Ov23liyBTaEfZ83f0DUS"
+  # Wir nutzen jetzt unsere eigene Next.js API-Route für den Login
+  auth_endpoint: "api/auth"
 
 # Lokales Testen ohne GitHub (falls nötig)
 local_backend: true
