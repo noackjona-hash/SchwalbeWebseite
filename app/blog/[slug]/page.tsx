@@ -11,8 +11,37 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const postData = await getPostData(resolvedParams.slug);
+  
+  const siteUrl = "https://schwalbewebseite.pages.dev";
+  const postUrl = `${siteUrl}/blog/${resolvedParams.slug}`;
+  const imageUrl = postData.image ? `${siteUrl}${postData.image}` : `${siteUrl}/images/Amateure1.webp`;
+  const excerpt = (postData as any).excerpt || `Neues aus dem Verein: ${postData.title}`;
+
   return {
     title: `${postData.title} | RSV Schwalbe Ellmendingen`,
+    description: excerpt,
+    openGraph: {
+      title: postData.title,
+      description: excerpt,
+      url: postUrl,
+      type: "article",
+      publishedTime: postData.date,
+      authors: postData.author ? [postData.author] : [],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: postData.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: postData.title,
+      description: excerpt,
+      images: [imageUrl],
+    },
   };
 }
 

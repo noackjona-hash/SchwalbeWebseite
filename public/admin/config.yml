@@ -29,3 +29,74 @@ collections:
       - {label: "Titelbild", name: "image", widget: "image", required: false}
       - {label: "Kurzzusammenfassung (Für die Startseite)", name: "excerpt", widget: "text", required: false}
       - {label: "Text / Inhalt", name: "body", widget: "markdown"}
+
+  - name: "seiten"
+    label: "Einzelseiten (Statisch)"
+    label_singular: "Seite"
+    description: "Feste Seiten der Webseite bearbeiten"
+    delete: false
+    files:
+      - label: "Der Verein"
+        name: "verein"
+        file: "content/pages/verein.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Bild", name: "image", widget: "image", required: false}
+          - {label: "Text / Inhalt", name: "body", widget: "markdown"}
+      - label: "Kontakt"
+        name: "kontakt"
+        file: "content/pages/kontakt.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Text / Inhalt", name: "body", widget: "markdown"}
+      - label: "Training"
+        name: "training"
+        file: "content/pages/training.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Text / Inhalt", name: "body", widget: "markdown"}
+
+  - name: "termine"
+    label: "Termine & Rennen"
+    label_singular: "Termin"
+    folder: "content/termine"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Titel", name: "title", widget: "string"}
+      - {label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Kategorie", name: "category", widget: "select", options: ["Renntermin", "Veranstaltung"]}
+      - {label: "Ort / Beschreibung", name: "location", widget: "string", required: false}
+      - {label: "Ausschreibung / Link", name: "link", widget: "string", required: false}
+      - {label: "Details (Optional)", name: "body", widget: "markdown", required: false}
+
+  - name: "fahrer"
+    label: "Fahrer / Team"
+    label_singular: "Fahrer"
+    folder: "content/fahrer"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - {label: "Name", name: "title", widget: "string"}
+      - {label: "Profilbild", name: "image", widget: "image", required: false}
+      - {label: "Disziplin", name: "discipline", widget: "string", required: false, hint: "z.B. U19, Amateure, MTB"}
+      - {label: "Kurzbeschreibung / Erfolge", name: "body", widget: "markdown", required: false}
+
+  - name: "sponsoren_liste"
+    label: "Sponsoren & Partner"
+    delete: false
+    files:
+      - label: "Sponsoren"
+        name: "sponsoren"
+        file: "content/settings/sponsoren.json"
+        fields:
+          - label: "Sponsoren Liste"
+            name: "sponsors"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Logo", name: "logo", widget: "image"}
+              - {label: "Webseite (URL)", name: "url", widget: "string", required: false}

@@ -17,6 +17,28 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "RSV Schwalbe Ellmendingen",
   description: "Der Radsportverein in Baden - RSV Schwalbe Ellmendingen e. V.",
+  openGraph: {
+    title: "RSV Schwalbe Ellmendingen",
+    description: "Der Radsportverein in Baden",
+    url: "https://schwalbewebseite.pages.dev",
+    siteName: "RSV Ellmendingen",
+    images: [
+      {
+        url: "https://schwalbewebseite.pages.dev/images/Amateure1.webp",
+        width: 1200,
+        height: 630,
+        alt: "RSV Ellmendingen Team",
+      },
+    ],
+    locale: "de_DE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RSV Schwalbe Ellmendingen",
+    description: "Der Radsportverein in Baden",
+    images: ["https://schwalbewebseite.pages.dev/images/Amateure1.webp"],
+  },
 };
 
 export default function RootLayout({
