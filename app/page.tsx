@@ -10,7 +10,7 @@ export default function Home() {
       <section className="hero-section animate-fade-in">
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">RSV Ellmendingen</h1>
+          <h1 className="hero-title"><span className="text-gradient">RSV Ellmendingen</span></h1>
           <p style={{ fontSize: '1.25rem', marginTop: 'var(--spacing-sm)' }}>Der Radsportverein in Baden</p>
         </div>
       </section>
@@ -61,8 +61,8 @@ export default function Home() {
         </div>
 
         {/* Sponsors Section */}
-        <div style={{ marginTop: 'var(--spacing-3xl)' }}>
-            <h2 className="section-title">Unsere Sponsoren</h2>
+        <div className="glass-panel" style={{ marginTop: 'var(--spacing-3xl)', padding: 'var(--spacing-xl)' }}>
+            <h2 className="section-title" style={{ marginBottom: 'var(--spacing-xl)' }}>Unsere Sponsoren</h2>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-xl)', justifyContent: 'center', alignItems: 'center' }}>
               {[
                 { name: 'Altinger Drucktechnik', url: 'https://www.altinger-drucktechnik.de/', logo: '/images/sponsoren/AltingerHP.jpg' },

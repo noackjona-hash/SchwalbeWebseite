@@ -1,22 +1,25 @@
 :root {
-  /* Pitch Black Palette */
-  --bg-primary: #000000; /* Pure Black */
-  --bg-secondary: #050505; /* Almost Black */
-  --bg-tertiary: #0a0a0a; /* Very Dark Gray */
+  /* Premium Dark Theme */
+  --bg-primary: #020617; /* Very deep slate */
+  --bg-secondary: #0f172a;
+  --bg-tertiary: #1e293b;
   
-  --text-primary: #e0e0e0; /* Softer white to reduce glare */
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   
-  --accent-primary: #ffffff; 
-  --accent-primary-hover: #cccccc;
-  --accent-secondary: #ffffff; 
+  /* Vibrant Accents */
+  --accent-primary: #06b6d4; /* Electric Cyan */
+  --accent-primary-hover: #22d3ee;
+  --accent-secondary: #3b82f6; /* Blue */
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   
-  --border-color: #111111; /* Extremely dark border */
-  --panel-bg: #050505; /* Just slightly above pure black for cards */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --panel-bg: rgba(15, 23, 42, 0.6); /* Translucent slate */
   
   /* Typography */
   --font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-outfit), var(--font-family);
   
   /* Spacing & Layout */
   --spacing-xs: 0.25rem;
@@ -31,6 +34,7 @@
   --header-height: 80px;
   
   --transition-fast: 150ms ease;
+  --transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -76,83 +80,92 @@ main {
   padding-top: var(--header-height);
 }
 
-/* Classic Clean Cards (No more glassmorphism) */
+/* Premium Glassmorphism Cards */
 .content-card {
-  background: transparent;
-  border: none;
-  border-radius: 0;
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.content-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.15);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-panel {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Clean Hover Effects */
 .image-hover {
-  transition: opacity var(--transition-fast);
+  transition: transform var(--transition-smooth);
 }
 
-.image-hover:hover {
-  opacity: 0.8;
+.content-card:hover .image-hover img {
+  transform: scale(1.08) !important;
+}
+
+.image-hover img {
+  transition: transform var(--transition-smooth);
 }
 
 /* Sponsor Logos */
 .sponsor-logo {
-  filter: grayscale(100%) brightness(0.8);
-  opacity: 0.6;
-  transition: all 300ms ease;
-  border-radius: 4px;
+  filter: grayscale(100%) opacity(0.5);
+  transition: all var(--transition-smooth);
+  border-radius: 8px;
 }
 
 .sponsor-logo:hover {
-  filter: grayscale(0%) brightness(1);
-  opacity: 1;
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.05);
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
-  color: var(--accent-secondary);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
-/* Section Title like in Screenshot */
+/* Section Title */
 .section-title {
   text-align: center;
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: var(--spacing-2xl);
-  position: relative;
-  padding-bottom: var(--spacing-md);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-3xl);
   color: var(--text-primary);
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px; /* Short, elegant line */
-  height: 4px; /* Thicker line */
-  background-color: var(--accent-primary);
-  border-radius: 2px;
-}
-
-.title-gradient {
-  color: var(--text-secondary);
-}
-
-.title-accent {
-  color: var(--accent-primary);
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
 }
 
 /* Button Styles */
@@ -166,46 +179,24 @@ h1, h2, h3, h4, h5, h6 {
   transition: all var(--transition-fast);
   border: none;
   font-family: var(--font-family);
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
-.btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-.btn-primary:hover {
-  background: var(--text-secondary);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-.btn-secondary:hover {
-  border-color: var(--text-primary);
-  background-color: var(--bg-tertiary);
-}
-
-/* Hero Section Image Overlay */
+/* Hero Section */
 .hero-section {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 400px;
+  height: 70vh;
+  min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   margin-top: calc(-1 * var(--header-height));
   padding-top: var(--header-height);
-  /* Use real club image instead of stock photo */
   background-image: url('/images/Amateure1.webp');
   background-size: cover;
   background-position: center 30%;
-  background-attachment: fixed; /* Parallax effect */
 }
 
 .hero-overlay {
@@ -214,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 1) 100%);
+  background: linear-gradient(to bottom, rgba(2, 6, 23, 0.4) 0%, var(--bg-primary) 100%);
   z-index: 1;
 }
 
@@ -222,38 +213,42 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: #ffffff; /* White text looks great on the darkened multiply background */
-  padding: 0 var(--spacing-lg);
+  padding: var(--spacing-2xl);
+  background: rgba(2, 6, 23, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
 }
 
 .hero-title {
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--spacing-xs);
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--spacing-sm);
 }
 
 /* Secondary Parallax Banner */
 .parallax-banner {
   position: relative;
   width: 100%;
-  height: 40vh;
-  min-height: 300px;
+  height: 50vh;
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   margin: var(--spacing-3xl) 0;
-  background-image: url('/images/Amateure1.webp'); /* Another image for variety */
+  background-image: url('/images/Amateure2.webp'); /* Fallback */
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Parallax effect */
+  background-attachment: fixed;
 }
 
 .parallax-banner .hero-overlay {
-  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay for variety */
-  mix-blend-mode: normal;
+  background: linear-gradient(to right, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.4));
 }
 
 /* Responsive */
@@ -261,5 +256,9 @@ h1, h2, h3, h4, h5, h6 {
   :root {
     --header-height: 60px;
     --spacing-3xl: 3rem;
+  }
+  .hero-content {
+    margin: 0 var(--spacing-md);
+    padding: var(--spacing-lg);
   }
 }
