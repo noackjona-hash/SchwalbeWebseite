@@ -37,13 +37,14 @@ export default function Home() {
         {upcomingEvents.length > 0 && (
           <div style={{ marginBottom: 'var(--spacing-3xl)' }}>
             <h2 className="section-title">Nächste Termine</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--spacing-md)' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--spacing-md)' }}>
               {upcomingEvents.map((termin, index) => (
                 <ScrollReveal key={termin.slug} delay={index * 100}>
-                  <div className="glass-panel" style={{ padding: 'var(--spacing-xl)', borderLeft: '4px solid var(--brand-primary)', height: '100%' }}>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--brand-primary)', fontWeight: 700, marginBottom: 'var(--spacing-xs)', textTransform: 'uppercase' }}>
-                      {termin.category}
-                    </div>
+                  <div style={{ flex: '1 1 300px', maxWidth: '400px', width: '100%', height: '100%' }}>
+                    <div className="glass-panel" style={{ padding: 'var(--spacing-xl)', borderLeft: '4px solid var(--accent-primary)', height: '100%' }}>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 700, marginBottom: 'var(--spacing-xs)', textTransform: 'uppercase' }}>
+                        {termin.category}
+                      </div>
                     <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--spacing-xs)' }}>{termin.title}</h3>
                     <div style={{ display: 'flex', alignItems: 'center', color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: 'var(--spacing-sm)' }}>
                       🗓️ {termin.date} {termin.location && <span style={{ marginLeft: 'var(--spacing-sm)' }}>📍 {termin.location}</span>}
@@ -53,6 +54,7 @@ export default function Home() {
                         Mehr Infos &rarr;
                       </Link>
                     )}
+                  </div>
                   </div>
                 </ScrollReveal>
               ))}

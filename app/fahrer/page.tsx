@@ -32,7 +32,7 @@ export default function Fahrer() {
                   )}
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '4px' }}>{fahrer.title}</h3>
-                {fahrer.discipline && <span style={{ color: 'var(--brand-primary)', fontWeight: 600, fontSize: '0.9rem', marginBottom: 'var(--spacing-sm)' }}>{fahrer.discipline}</span>}
+                {fahrer.discipline && <span style={{ color: 'var(--accent-primary)', fontWeight: 600, fontSize: '0.9rem', marginBottom: 'var(--spacing-sm)' }}>{fahrer.discipline}</span>}
                 {fahrer.body && <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginTop: 'var(--spacing-sm)' }}>{fahrer.body}</p>}
               </div>
             </ScrollReveal>

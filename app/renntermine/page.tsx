@@ -23,7 +23,7 @@ export default function Renntermine() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 'var(--spacing-sm)' }}>
                   <div>
                     <h3 style={{ fontSize: '1.25rem', marginBottom: '4px' }}>{termin.title}</h3>
-                    <div style={{ color: 'var(--brand-primary)', fontWeight: 600 }}>{termin.date}</div>
+                    <div style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>{termin.date}</div>
                     {termin.location && <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>📍 {termin.location}</div>}
                   </div>
                   {termin.link && (
